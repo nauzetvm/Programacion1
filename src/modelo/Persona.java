@@ -23,7 +23,6 @@ public class Persona {
 		this.nombre = "Anonimo";
 		this.sexo = 'M';
 		this.fecha = new Date();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getNif() {
