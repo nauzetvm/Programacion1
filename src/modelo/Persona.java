@@ -20,7 +20,7 @@ public class Persona {
 	public Persona() {
 		super();
 		this.nif = "123456789K";
-		this.nombre = "anonimo";
+		this.nombre = "Anonimo";
 		this.sexo = 'M';
 		this.fecha = new Date();
 		// TODO Auto-generated constructor stub
