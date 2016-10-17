@@ -1,33 +1,145 @@
+/**
+ * @author nauzetvm
+ */
+
 package control;
 
+import modelo.Persona;
+
 public class Ejercicios1 {
+	/*
+	 * public int lanzarDado() { double rnd = Math.random()*10; if (rnd < 6 &&
+	 * rnd >=1) { return (int) Math.round(rnd); } else { return lanzarDado(); }
+	 * }
+	 */
 
-	public static void main(String[] args) {
-		Ejercicios1 ej1 = new Ejercicios1();
+	public int lanzarDado() {
+		double rnd = (int) (1 + Math.random() * 6);
+		return (int) rnd;
+	}
 
-		/*
-		 * for (int i=0; i < 100 ; i++) ej1.lanzarDado();
-		 */
-		// int x = 1000;//
-		// ej1.listaNPrimerosEnteros(x);
-		// ej1.bucleReloj();
-		// int x = 134;
-		// int y = 138;
+	public int[] lanzadas(int nLanzadas) {
+		int[] resultado = new int[6];
+		int num = 0;
+		for (int i = 0; i < nLanzadas; i++) {
+			num = lanzarDado();
+			resultado[num - 1]++;
+		}
+		return resultado;
+	}
 
-		// int resultado = ej1.sumaIntervalo(x, y);
+	public static void mostrarEstadisticas(int[] vecEstadisticas, int nLanzadas) {
+		double percent;
+		for (int i = 0; i < vecEstadisticas.length; i++) {
+			percent = (vecEstadisticas[i] * 100) / nLanzadas;
+			System.out.println("Te ha salido un " + (i + 1) + " " + vecEstadisticas[i] + " (" + percent + "%) veces.");
+		}
+	}
 
-		// System.out.println(" Suma en intervalo " + x + ", " + y + " es " +
-		// resultado);
-		// int z = 50;
-		// ej1.fibonacci(z);
-		/*
-		 * int cuantasLanzadas = 500; int[] salida =
-		 * ej1.lanzadas(cuantasLanzadas); ej1.mostrarLanzadas(salida,
-		 * cuantasLanzadas);
-		 */
-		// int numero = 7771;
-		// ej1.listarPrimos(100);
-		ej1.crearHebras(3);
+	public void rangoNumero(int num) {
+		for (int i = 0; i <= num; i++)
+			System.out.println(i);
+	}
+
+	public void bucleReloj() {
+		int h = 0, m = 0, s = 0;
+		while (h < 24) { // bucle de horas.
+			m = 0;
+			while (m < 60) { // bucle de minutos.
+				s = 0;
+				while (s < 60) { // bucle de segundos.
+					System.out.println(h + ":" + m + ":" + s);
+					s++;
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				m++;
+			}
+			h++;
+		}
+	}
+
+	public int sumaIntervalo(int n1, int n2) {
+		int res = 0;
+		// while (n1 <= n2) {
+		// res += n1;
+		// n1++;
+		// }
+
+		for (int i = n1; i <= n2; i++)
+			res += i;
+		return res;
+	}
+
+	public void fibonaccif(int n) {
+		int a = 0, b = 1, c;
+		for (int i = 0; i < n; i++) {
+			c = a + b;
+			a = b;
+			b = c;
+			System.out.print(c + ",");
+		}
+	}
+
+	public void fibonacciw(int n) {
+		int a = 0, b = 1, c;
+		int i = 0;
+		while (i != n) {
+			c = a + b;
+			a = b;
+			b = c;
+			System.out.print(c + ",");
+			i++;
+		}
+	}
+
+	public int producto(int a, int b) {
+		int res = 0;
+		for (int i = 0; i < b; i++)
+			res += a;
+		return res;
+	}
+
+	public boolean esPrimo(int num) {
+		for (int i = 2; i < num; i++) {
+			if (num % i == 0) {
+				// System.out.println("El número " + num + " NO es primo.");
+				return false;
+			}
+		}
+		// System.out.println("El número " + num + " es primo.");
+		return true;
+	}
+
+	public void listarPrimos(int cuantos) {
+		int candidato = 1;
+		for (int cont = 0; cont < cuantos; cont++) {
+			if (esPrimo(candidato))
+				System.out.print(candidato + ", ");
+			candidato++;
+		}
+
+	}
+
+	public void creaListaPersonas() {
+		Persona juan = new Persona();
+		Persona pepe = new Persona("65423541L", "Pepe", 'H', null);
+		Persona maria = new Persona("12352324G", "Maria", 'M', null);
+
+		Persona[] listaPersonas = new Persona[20];
+		listaPersonas[9] = juan;
+		listaPersonas[1] = pepe;
+		listaPersonas[3] = maria;
+
+		for (int i = 0; i < listaPersonas.length; i++) {
+			if (listaPersonas[i] != null)
+				System.out.println(listaPersonas[i].getNombre());
+		}
+
 	}
 
 	public void crearHebras(int cuantas) {
@@ -36,128 +148,57 @@ public class Ejercicios1 {
 			hebra.setName("Hebra" + i);
 			hebra.start();
 		}
-		System.out.println("creadas las hebras");
-
 	}
 
-	public void creaListaPersonas() {
-		// crea 3 personas
-		// define el array para 20 personas
-		// asigna las personas al array
-		// muestra el nif de las 3 personas
-	}
+	public static void main(String[] args) {
+		// Scanner teclado = new Scanner(System.in);
+		Ejercicios1 ej1 = new Ejercicios1();
+		// DADO
+		// int [] numero = ej1.lanzadas(100);
+		// System.out.println("Te ha salido un: " + numero);
 
-	public void listarPrimos(int cuantos) {
-		// int contador = 0;
-		int candidato = 1;
-		// while (contador < cuantos) {
-		for (int contador = 0; contador < cuantos; contador++) {
-			if (esPrimo(candidato))
-				System.out.println(candidato);
-			candidato++;
+		// LANZADAS Y ESTADISTICAS
+		// int nLanzadas = 150;
+		// int[] estadisticas = ej1.lanzadas(nLanzadas);
+		// mostrarEstadisticas(estadisticas, nLanzadas);
 
-		}
+		// MOSTRAR RANGO
+		// System.out.print("Introduzca un número límite: ");
+		// int num = teclado.nextInt();
+		// ej1.rangoNumero(num);
 
-	}
+		// RELOJ
+		// ej1.bucleReloj();
 
-	public boolean esPrimo(int numero) {
-		for (int i = 2; i < numero; i++) {
-			if (numero % i == 0) {
-				// System.out.println(numero + " NO es primo !!" + i);
+		// SUMA INTERVALOS
+		// System.out.println("Introduzca el valor menor: ");
+		// int menor = teclado.nextInt();
+		// System.out.println("Introduzca el valor mayor: ");
+		// int mayor = teclado.nextInt();
+		// teclado.close();
+		// System.out.print("Numeros sumados: " + ej1.sumaIntervalo(menor,
+		// mayor));
 
-				return false;
-			}
+		// FIBONACCI
+		// ej1.fibonacciw(10);
 
-		}
-		// System.out.println(numero + " es primo !!");
-		return true;
+		// PRODUCTO CON SUMA
+		// int x = 5;
+		// int y = 9;
+		//
+		// int res = ej1.producto(x, y);
+		// System.out.println("El producto de " + x + " * " + y + " es: " +
+		// res);
 
-	}
+		// PRIMOS
+		// ej1.esPrimo(1987);
+		// ej1.listarPrimos(100);
 
-	public void fibonacci(int n) {
-		float a, b, c;
-		a = 0;
-		b = 1;
+		// PERSONAS
+		ej1.creaListaPersonas();
 
-		/*
-		 * for (int i = 0; i < n; i++) { c=a+b; System.out.print(c + ", "); a=b;
-		 * }
-		 */
-		int i = 0;
-		while (i < n) {
-			c = a + b;
-			System.out.print(c + ", " + "\n");
-			a = b;
-			b = c;
-			i++;
-		}
+		// HEBRAS
+		// ej1.crearHebras(100);
 
 	}
-
-	public int sumaIntervalo(int menor, int mayor) {
-		int acum = 0;
-		for (int i = menor; i <= mayor; i++)
-			acum += i;
-		return acum;
-	}
-
-	public void mostrarLanzadas(int[] datos, int cuantasLanzadas) {
-		for (int i = 0; i < datos.length; i++)
-			/*
-			 * System.out.println("El número " + (i + 1) + " ha salido " +
-			 * datos[i] + " veces(" + ((datos[i]*100)/cuantasLanzadas) + " %)");
-			 */
-			System.out.printf("El numero %d aparece %d veces (%.2f)\n", (i + 1), datos[i],
-					(float) (datos[i] * 100) / cuantasLanzadas);
-	}
-
-	public int[] lanzadas(int numLanzadas) {
-		int[] resultado = new int[6];
-		int numero;
-		for (int i = 0; i < numLanzadas; i++) {
-			numero = lanzarDado();
-			resultado[numero - 1]++;
-		}
-		return resultado;
-	}
-
-	public int lanzarDado() {
-
-		int valor = (int) (1 + Math.random() * 6);
-		// System.out.println(valor);
-		return valor;
-
-	}
-
-	public void listaNPrimerosEnteros(int n) {
-		for (int i = 0; i < n; i++)
-			System.out.println(i + 1);
-
-	}
-
-	public void bucleReloj() {
-		int h = 0, m = 0, s = 0;
-		while (h < 24) // bucle de horas
-		{
-			m = 0;
-			while (m < 60) {
-				s = 0;
-				while (s < 60) {
-					System.out.println(h + " : " + m + " : " + s);
-					s++;
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-				}
-				m++; // m= m + 1;
-			}
-			h++;
-		}
-
-	}
-
 }
