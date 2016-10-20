@@ -4,7 +4,9 @@
 
 package control;
 
+import java.util.Date;
 import modelo.Persona;
+import modelo.Estudiante;
 
 public class Ejercicios1 {
 	/*
@@ -136,8 +138,12 @@ public class Ejercicios1 {
 		listaPersonas[3] = maria;
 
 		for (int i = 0; i < listaPersonas.length; i++) {
-			if (listaPersonas[i] != null)
+			try {
 				System.out.println(listaPersonas[i].getNombre());
+			} catch (NullPointerException e) {
+				
+				System.out.println("Objeto nulo");
+			}
 		}
 
 	}
@@ -150,6 +156,12 @@ public class Ejercicios1 {
 		}
 	}
 
+	public void convierteAEnteros(){
+		String [] numeros = {"123","80","894","10024"};
+		//Completar
+	}
+	
+	
 	public static void main(String[] args) {
 		// Scanner teclado = new Scanner(System.in);
 		Ejercicios1 ej1 = new Ejercicios1();
@@ -200,5 +212,7 @@ public class Ejercicios1 {
 		// HEBRAS
 		// ej1.crearHebras(100);
 
+		// ESTUDIANTE
+		Estudiante estu1 = new Estudiante("95482512E", "Pedro", 'H', new Date(), 2, "2016/09/14");
 	}
 }
