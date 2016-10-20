@@ -55,7 +55,6 @@ public class Ejercicios1 {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -141,7 +140,6 @@ public class Ejercicios1 {
 			try {
 				System.out.println(listaPersonas[i].getNombre());
 			} catch (NullPointerException e) {
-				
 				System.out.println("Objeto nulo");
 			}
 		}
@@ -156,12 +154,15 @@ public class Ejercicios1 {
 		}
 	}
 
-	public void convierteAEnteros(){
-		String [] numeros = {"123","80","894","10024"};
-		//Completar
+	public void convierteAEnteros() {
+		String[] ncadena = { "123", "80", "894", "10024" };
+		int[] nenteros = new int[ncadena.length];
+		for (int i = 0; i < ncadena.length; i++) {
+			nenteros[i] = Integer.parseInt(ncadena[i]);
+			System.out.println(nenteros[i]);
+		}
 	}
-	
-	
+
 	public static void main(String[] args) {
 		// Scanner teclado = new Scanner(System.in);
 		Ejercicios1 ej1 = new Ejercicios1();
@@ -207,12 +208,16 @@ public class Ejercicios1 {
 		// ej1.listarPrimos(100);
 
 		// PERSONAS
-		ej1.creaListaPersonas();
+		// ej1.creaListaPersonas();
 
 		// HEBRAS
 		// ej1.crearHebras(100);
 
 		// ESTUDIANTE
-		Estudiante estu1 = new Estudiante("95482512E", "Pedro", 'H', new Date(), 2, "2016/09/14");
+		// Estudiante estu1 = new Estudiante("95482512E", "Pedro", 'H', new
+		// Date(), 2, "2016/09/14");
+
+		// CONVERTIR STRING A ENTERO
+		ej1.convierteAEnteros();
 	}
 }
