@@ -4,16 +4,14 @@
 
 package control;
 
-import java.util.Date;
+import java.util.Random;
+import java.util.Scanner;
+
 import modelo.Persona;
-import modelo.Estudiante;
 
 public class Ejercicios1 {
-	/*
-	 * public int lanzarDado() { double rnd = Math.random()*10; if (rnd < 6 &&
-	 * rnd >=1) { return (int) Math.round(rnd); } else { return lanzarDado(); }
-	 * }
-	 */
+
+	private Scanner teclado = new Scanner(System.in);;
 
 	public int lanzarDado() {
 		double rnd = (int) (1 + Math.random() * 6);
@@ -163,61 +161,92 @@ public class Ejercicios1 {
 		}
 	}
 
+	public int[] generarIntervalo() {
+		System.out.println("Generador de número en el intervalo.\n");
+		// Bucle validacion
+		int min = 0;
+		int max = 0;
+		boolean error1 = true;
+		while (error1) {
+			System.out.println("Introduzca el intervalo deseado(Ejemplo: 10,20):");
+			String intervalo = teclado.nextLine();
+			String[] limites = intervalo.split(",");
+			// Validamos que hay dos números.
+			if (limites.length != 2) {
+				System.out.println("Debe introducir dos valores: ");
+				error1 = true;
+				continue;
+			}
+			try {
+				min = Integer.parseInt(limites[0]);
+				max = Integer.parseInt(limites[1]);
+				if (min >= max) {
+					System.out.println("¡El primer número debe ser menor que el segundo!");
+					error1 = true;
+					continue;
+				}
+				// Valiración correcta
+				error1 = false;
+			} catch (NumberFormatException e) {
+				System.out.println("¡Error de formato!");
+				error1 = true;
+				continue;
+			}
+		}
+		int[] intervalo = { min, max };
+		return intervalo;
+	}
+
+	public int generarAleatorioEntre(int min, int max) {
+		/*
+		 * int num = min; int diferencias = max-min; Random rnd = new Random();
+		 * num += rnd.nextInt(diferencias); System.out.println(num);
+		 */
+		return min + new Random().nextInt(max - min);
+	}
+
+	public void adivinaNumero() {
+		int[] limites = generarIntervalo(); // Se piden dos numeros y se genera
+											// número a adivinar.
+		int numeroAdivinar = generarAleatorioEntre(limites[0], limites[1]);
+		jugarAdivinarNumero(numeroAdivinar);
+	}
+
+	public void jugarAdivinarNumero(int numeroAdivinar) {
+		boolean jugando = true;
+		do { // Bucle del juego.
+			boolean error1 = true;
+			int numeroJugado = 0;
+			while (error1) {
+				try {
+					System.out.print("Introduzca su número: (Q/q para salir): ");
+					String numeroTecleado = teclado.nextLine();
+					if (numeroTecleado.compareToIgnoreCase("q") == 0) {
+						System.out.println("Fin de la partida, hasta la próxima.");
+						System.exit(0);
+					}
+					numeroJugado = Integer.parseInt(numeroTecleado);
+					error1 = false;
+				} catch (NumberFormatException e) {
+					System.out.println("Número incorrecto.");
+				}
+			}
+			// Numero valido...
+			if (numeroJugado < numeroAdivinar) {
+				System.out.println("Pruebe un número mayor.");
+			} else if (numeroJugado > numeroAdivinar) {
+				System.out.println("Pruebe con uno menor.");
+			} else {
+				System.out.println("¡Enhorabuena, has acertado!");
+				jugando = false;
+			}
+		} while (jugando);
+	}
+
 	public static void main(String[] args) {
-		// Scanner teclado = new Scanner(System.in);
 		Ejercicios1 ej1 = new Ejercicios1();
-		// DADO
-		// int [] numero = ej1.lanzadas(100);
-		// System.out.println("Te ha salido un: " + numero);
 
-		// LANZADAS Y ESTADISTICAS
-		// int nLanzadas = 150;
-		// int[] estadisticas = ej1.lanzadas(nLanzadas);
-		// mostrarEstadisticas(estadisticas, nLanzadas);
-
-		// MOSTRAR RANGO
-		// System.out.print("Introduzca un número límite: ");
-		// int num = teclado.nextInt();
-		// ej1.rangoNumero(num);
-
-		// RELOJ
-		// ej1.bucleReloj();
-
-		// SUMA INTERVALOS
-		// System.out.println("Introduzca el valor menor: ");
-		// int menor = teclado.nextInt();
-		// System.out.println("Introduzca el valor mayor: ");
-		// int mayor = teclado.nextInt();
-		// teclado.close();
-		// System.out.print("Numeros sumados: " + ej1.sumaIntervalo(menor,
-		// mayor));
-
-		// FIBONACCI
-		// ej1.fibonacciw(10);
-
-		// PRODUCTO CON SUMA
-		// int x = 5;
-		// int y = 9;
-		//
-		// int res = ej1.producto(x, y);
-		// System.out.println("El producto de " + x + " * " + y + " es: " +
-		// res);
-
-		// PRIMOS
-		// ej1.esPrimo(1987);
-		// ej1.listarPrimos(100);
-
-		// PERSONAS
-		// ej1.creaListaPersonas();
-
-		// HEBRAS
-		// ej1.crearHebras(100);
-
-		// ESTUDIANTE
-		// Estudiante estu1 = new Estudiante("95482512E", "Pedro", 'H', new
-		// Date(), 2, "2016/09/14");
-
-		// CONVERTIR STRING A ENTERO
-		ej1.convierteAEnteros();
+		// JUEGO NÚMEROS
+		ej1.adivinaNumero();
 	}
 }
