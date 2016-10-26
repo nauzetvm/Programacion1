@@ -4,10 +4,12 @@
 
 package control;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
 import modelo.Persona;
+import modelo.Intento;
 
 public class Ejercicios1 {
 
@@ -162,13 +164,13 @@ public class Ejercicios1 {
 	}
 
 	public int[] generarIntervalo() {
-		System.out.println("Generador de número en el intervalo.\n");
+		System.out.println("Generador de número en el intervalo.");
 		// Bucle validacion
 		int min = 0;
 		int max = 0;
 		boolean error1 = true;
 		while (error1) {
-			System.out.println("Introduzca el intervalo deseado(Ejemplo: 10,20):");
+			System.out.println("Introduzca el intervalo deseado (Ejemplo: 10,20):");
 			String intervalo = teclado.nextLine();
 			String[] limites = intervalo.split(",");
 			// Validamos que hay dos números.
@@ -213,16 +215,23 @@ public class Ejercicios1 {
 	}
 
 	public void jugarAdivinarNumero(int numeroAdivinar) {
+		int contadorIntentos = 0;
+		Intento[] intentos = new Intento[10];
 		boolean jugando = true;
 		do { // Bucle del juego.
 			boolean error1 = true;
 			int numeroJugado = 0;
 			while (error1) {
 				try {
-					System.out.print("Introduzca su número: (Q/q para salir): ");
+					System.out.print("Introduzca su número: (Q para salir): ");
 					String numeroTecleado = teclado.nextLine();
+					System.out.println(+(contadorIntentos + 1) + "/" + intentos.length + " intentos. ");
 					if (numeroTecleado.compareToIgnoreCase("q") == 0) {
 						System.out.println("Fin de la partida, hasta la próxima.");
+						System.exit(0);
+					}
+					if (contadorIntentos == intentos.length - 1) {
+						System.out.println("Fin de la partida, se te han agotado los intentos.");
 						System.exit(0);
 					}
 					numeroJugado = Integer.parseInt(numeroTecleado);
@@ -231,13 +240,18 @@ public class Ejercicios1 {
 					System.out.println("Número incorrecto.");
 				}
 			}
-			// Numero valido...
+			// Creamos un intento...
+			Intento intento = new Intento(numeroJugado, new Date());
+			// Y lo guardamos.
+			intentos[contadorIntentos++] = intento;
+			// Numero valido.
 			if (numeroJugado < numeroAdivinar) {
 				System.out.println("Pruebe un número mayor.");
 			} else if (numeroJugado > numeroAdivinar) {
 				System.out.println("Pruebe con uno menor.");
 			} else {
-				System.out.println("¡Enhorabuena, has acertado!");
+				System.out
+						.println("¡Enhorabuena, has acertado necesitando solamente " + contadorIntentos + " intentos.");
 				jugando = false;
 			}
 		} while (jugando);
