@@ -5,6 +5,7 @@
 package control;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -221,29 +222,39 @@ public class Ejercicios1 {
 		do { // Bucle del juego.
 			boolean error1 = true;
 			int numeroJugado = 0;
+			String numeroTecleado = "";
 			while (error1) {
 				try {
 					System.out.print("Introduzca su número: (Q para salir): ");
-					String numeroTecleado = teclado.nextLine();
-					System.out.println(+(contadorIntentos + 1) + "/" + intentos.length + " intentos. ");
+					numeroTecleado = teclado.nextLine();
 					if (numeroTecleado.compareToIgnoreCase("q") == 0) {
 						System.out.println("Fin de la partida, hasta la próxima.");
 						System.exit(0);
-					}
-					if (contadorIntentos == intentos.length - 1) {
+					} else if (contadorIntentos == intentos.length - 1) {
 						System.out.println("Fin de la partida, se te han agotado los intentos.");
 						System.exit(0);
+					} else if (numeroTecleado.compareToIgnoreCase("r") == 0) {
+						System.out.println("Sus intentos han sido:");
+						for (int i = 0; i < intentos.length; i++) {
+							try {
+								System.out.printf("%d.- \t%d\t%s\n", i + 1, intentos[i].getNumero(),
+										intentos[i].getFechaHora());
+							} catch (NullPointerException e) {
+								break;
+							}
+						}
+						System.out.println("Le quedan " + (intentos.length - contadorIntentos) + " intentos. ");
+						continue;
 					}
 					numeroJugado = Integer.parseInt(numeroTecleado);
 					error1 = false;
+					// Creamos un nuevo intento...
+					Intento intento = new Intento(numeroJugado, new Date());
+					intentos[contadorIntentos++] = intento;
 				} catch (NumberFormatException e) {
 					System.out.println("Número incorrecto.");
 				}
 			}
-			// Creamos un intento...
-			Intento intento = new Intento(numeroJugado, new Date());
-			// Y lo guardamos.
-			intentos[contadorIntentos++] = intento;
 			// Numero valido.
 			if (numeroJugado < numeroAdivinar) {
 				System.out.println("Pruebe un número mayor.");
@@ -257,10 +268,27 @@ public class Ejercicios1 {
 		} while (jugando);
 	}
 
+	public String[] ordenaListaCadenas(String[] lista) {
+		for (int i = 0; i < lista.length - 1; i++) {
+			for (int j = i + 1; j < lista.length; j++) {
+				if (lista[i].compareTo(lista[j]) < 0) { // Hay que permutar.
+					String aux = lista[j];
+					lista[j] = lista[i];
+					lista[i] = aux;
+				}
+			}
+		}
+		return lista;
+	}
+
 	public static void main(String[] args) {
 		Ejercicios1 ej1 = new Ejercicios1();
 
 		// JUEGO NÚMEROS
 		ej1.adivinaNumero();
+
+		// Ordenar vector de String.
+		// String[] lista = { "maria", "pepe", "joaquin", "pedro", "gervasio" };
+		// ej1.ordenaListaCadenas(lista);
 	}
 }
