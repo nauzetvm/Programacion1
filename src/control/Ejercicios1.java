@@ -5,10 +5,8 @@
 package control;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
-
 import modelo.Persona;
 import modelo.Intento;
 
@@ -219,13 +217,14 @@ public class Ejercicios1 {
 		int contadorIntentos = 0;
 		Intento[] intentos = new Intento[10];
 		boolean jugando = true;
+		String infoIntento = "";
 		do { // Bucle del juego.
 			boolean error1 = true;
 			int numeroJugado = 0;
 			String numeroTecleado = "";
 			while (error1) {
 				try {
-					System.out.print("Introduzca su número: (Q para salir): ");
+					System.out.print("Introduzca su número: (Q: salir | R: revisar intentos): ");
 					numeroTecleado = teclado.nextLine();
 					if (numeroTecleado.compareToIgnoreCase("q") == 0) {
 						System.out.println("Fin de la partida, hasta la próxima.");
@@ -238,7 +237,7 @@ public class Ejercicios1 {
 						for (int i = 0; i < intentos.length; i++) {
 							try {
 								System.out.printf("%d.- \t%d\t%s\n", i + 1, intentos[i].getNumero(),
-										intentos[i].getFechaHora());
+										intentos[i].getFechaHora() + " -> " + infoIntento);
 							} catch (NullPointerException e) {
 								break;
 							}
@@ -257,9 +256,11 @@ public class Ejercicios1 {
 			}
 			// Numero valido.
 			if (numeroJugado < numeroAdivinar) {
-				System.out.println("Pruebe un número mayor.");
+				infoIntento = "Pruebe un número mayor";
+				System.out.println(infoIntento);
 			} else if (numeroJugado > numeroAdivinar) {
-				System.out.println("Pruebe con uno menor.");
+				infoIntento = "Pruebe un número menor";
+				System.out.println(infoIntento);
 			} else {
 				System.out
 						.println("¡Enhorabuena, has acertado necesitando solamente " + contadorIntentos + " intentos.");

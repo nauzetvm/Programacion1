@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="627.0" prefWidth="308.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+   <children>
+      <TextField fx:id="min" alignment="CENTER" layoutX="34.0" layoutY="60.0" prefHeight="25.0" prefWidth="61.0" promptText="mínimo" AnchorPane.leftAnchor="34.0" AnchorPane.topAnchor="60.0" />
+      <TextField fx:id="max" alignment="CENTER" layoutX="134.0" layoutY="60.0" prefHeight="25.0" prefWidth="67.0" promptText="máximo" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="60.0" />
+      <Button fx:id="botonGenerar" layoutX="79.0" layoutY="106.0" mnemonicParsing="false" onAction="#botonGenerar" text="Generar" textAlignment="CENTER" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="78.0" />
+      <Separator layoutX="9.0" layoutY="190.0" prefHeight="35.0" prefWidth="200.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="7.0" />
+      <Button fx:id="botonJugar" layoutX="52.0" layoutY="267.0" mnemonicParsing="false" onAction="#botonJugar" text="Jugar" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="204.0" /> 
+      <TextArea fx:id="infoJugar" layoutX="13.0" layoutY="316.0" prefHeight="166.0" prefWidth="190.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" />
+      <TextField fx:id="infoGenerar" editable="false" layoutX="35.0" layoutY="156.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="32.0" />
+      <Label layoutX="64.0" layoutY="21.0" text="Adivinar Numero" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="61.0" />
+      <TextField fx:id="numeroJugado" layoutX="78.0" layoutY="225.0" promptText="Pruebe un número..." AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="74.0" />
+      <Button fx:id="botonIntentos" layoutX="208.0" layoutY="267.0" mnemonicParsing="false" onAction="#verIntentos" text="Ver intentos" />
+   </children>
+</AnchorPane>
