@@ -5,6 +5,7 @@
 package control;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 import modelo.Persona;
@@ -279,17 +280,96 @@ public class Ejercicios1 {
 				}
 			}
 		}
+		System.out.println("FIN");
 		return lista;
+	}
+
+	public int[] ordenaListaNumeros(int[] lista) {
+		for (int i = 0; i < lista.length - 1; i++) {
+			for (int j = i + 1; j < lista.length; j++) {
+				if (lista[i] > lista[j]) { // Hay que permutar.
+					int aux = lista[j];
+					lista[j] = lista[i];
+					lista[i] = aux;
+				}
+			}
+		}
+		return lista;
+	}
+
+	public int[] mezclaArrayEnteros(int[] a1, int[] a2) {
+		int[] a3 = new int[a1.length + a2.length];
+		int i = 0, j = 0, k = 0;
+		System.out.println(a3.length);
+		while (k < a3.length) {
+			try {
+				System.out.println("Comparo " + a1[i] + "  " + a2[j]);
+				if (a1[i] < a2[j]) {
+					a3[k] = a1[i];
+					System.out.println("Ahora a1 " + a1[i] + "\n");
+					i++;
+				} else {
+					a3[k] = a2[j];
+					System.out.println("Ahora a2 " + a2[j] + "\n");
+					j++;
+				}
+				k++;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				if (i >= a1.length) {
+					a1[i - 1] = Integer.MAX_VALUE;
+					i--;
+				} else if (j >= a2.length) {
+					a2[j - 1] = Integer.MAX_VALUE;
+					j--;
+				}
+			}
+		}
+		return a3;
+	}
+
+	public boolean busquedaBinaria(int buscame, int[] enDonde) {
+		int inf = 0;
+		int sup = enDonde.length;
+		while (inf < sup) {
+			int mid = inf + (sup - inf) / 2;
+			if (enDonde[mid] == buscame) {
+				return true;
+			}
+			if (enDonde[mid] > buscame) {
+				sup = mid;
+			} else if (enDonde[mid] < buscame) {
+				inf = mid;
+			}
+		}
+		return false;
 	}
 
 	public static void main(String[] args) {
 		Ejercicios1 ej1 = new Ejercicios1();
 
 		// JUEGO NÚMEROS
-		ej1.adivinaNumero();
+		// ej1.adivinaNumero();
 
 		// Ordenar vector de String.
 		// String[] lista = { "maria", "pepe", "joaquin", "pedro", "gervasio" };
 		// ej1.ordenaListaCadenas(lista);
+
+		// Ordenar lista enteros
+		int[] listaN = { 1, 5, 3, 6, 2, 5, 2, 7, 9, 3, 100, 53, 6, 45 };
+		int[] listaIntOrdenada = ej1.ordenaListaNumeros(listaN);
+
+		// Buscar numero
+		boolean encontrado = ej1.busquedaBinaria(100, listaIntOrdenada);
+		if (encontrado) {
+			System.out.println("Encontrado");
+		} else {
+			System.out.println("NO encontrado");
+		}
+
+		// Mezclar arrays.
+		int[] a1 = { 1, 5, 2, 70 };
+		int[] a2 = { 10, 53, 6, 77, 45 };
+		ej1.mezclaArrayEnteros(a1, a2);
+
 	}
 }
