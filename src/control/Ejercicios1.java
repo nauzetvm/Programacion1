@@ -279,17 +279,193 @@ public class Ejercicios1 {
 				}
 			}
 		}
+		System.out.println("FIN");
 		return lista;
+	}
+
+	public int[] ordenaListaNumeros(int[] lista) {
+		for (int i = 0; i < lista.length - 1; i++) {
+			for (int j = i + 1; j < lista.length; j++) {
+				if (lista[i] > lista[j]) { // Hay que permutar.
+					int aux = lista[j];
+					lista[j] = lista[i];
+					lista[i] = aux;
+				}
+			}
+		}
+		return lista;
+	}
+
+	public int[] mezclaArrayEnteros(int[] a1, int[] a2) {
+		int[] a3 = new int[a1.length + a2.length];
+		int i = 0, j = 0, k = 0;
+		System.out.println(a3.length);
+		while (k < a3.length) {
+			try {
+				System.out.println("Comparo " + a1[i] + "  " + a2[j]);
+				if (a1[i] < a2[j]) {
+					a3[k] = a1[i];
+					System.out.println("Ahora a1 " + a1[i] + "\n");
+					i++;
+				} else {
+					a3[k] = a2[j];
+					System.out.println("Ahora a2 " + a2[j] + "\n");
+					j++;
+				}
+				k++;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				if (i >= a1.length) {
+					a1[i - 1] = Integer.MAX_VALUE;
+					i--;
+				} else if (j >= a2.length) {
+					a2[j - 1] = Integer.MAX_VALUE;
+					j--;
+				}
+			}
+		}
+		return a3;
+	}
+
+	public boolean busquedaBinaria(int buscame, int[] enDonde) {
+		int inf = 0;
+		int sup = enDonde.length - 1;
+		while (inf <= sup) {
+			int mid = inf + (sup - inf) / 2;
+			if (enDonde[mid] == buscame) {
+				return true;
+			} else if (enDonde[mid] > buscame) {
+				sup = mid - 1;
+			} else {
+				inf = mid + 1;
+			}
+		}
+		return false;
+	}
+
+	public int sumaMatrizEnteros(int[][] matriz) {
+		int sum = 0;
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				sum += matriz[i][j];
+			}
+		}
+		return sum;
+	}
+
+	public int[] sumaFilaMatriz(int[][] matriz) {
+		int[] sum = new int[matriz.length];
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				sum[i] += matriz[i][j];
+			}
+		}
+		return sum;
+	}
+
+	public int[] sumaColumnaMatrizTry(int[][] matriz) {
+		int nMaxCols = 0;
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				if (matriz[i].length > nMaxCols) {
+					nMaxCols = matriz[i].length;
+				}
+			}
+		}
+		int[] sum = new int[nMaxCols];
+		for (int j = 0; j < nMaxCols; j++) {
+			for (int i = 0; i < matriz.length + 1; i++) {
+				try {
+					sum[j] += matriz[i][j];
+				} catch (ArrayIndexOutOfBoundsException e) {
+					// Capturo excepción
+				}
+			}
+		}
+		return sum;
+	}
+
+	public int[] sumaColumnaMatrizIf(int[][] matriz) {
+		int nMaxCols = 0;
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				if (matriz[i].length > nMaxCols) {
+					nMaxCols = matriz[i].length;
+				}
+			}
+		}
+		int[] sum = new int[nMaxCols];
+
+		for (int j = 0; j < nMaxCols; j++) {
+			for (int i = 0; i < matriz.length; i++) {
+				if (j < matriz[i].length) {
+					sum[j] += matriz[i][j];
+				}
+			}
+		}
+		return sum;
+	}
+
+	public int calculaSaldoFinal(int[] movimientosCuenta, int saldoInicial) {
+		int saldoFinal = saldoInicial;
+		for (int i = 0; i < movimientosCuenta.length; i++) {
+			saldoFinal += movimientosCuenta[i];
+		}
+		return saldoFinal;
+	}
+
+	public String ordenaPalabra(String palabra) {
+		String res = "";
+		char[] pa2vec = palabra.toCharArray();
+		for (int i = 0; i < pa2vec.length; i++) {
+			for (int j = i + 1; j < pa2vec.length; j++) {
+				if (pa2vec[i] > pa2vec[j]) { // Hay que permutar.
+					char aux = pa2vec[j];
+					pa2vec[j] = pa2vec[i];
+					pa2vec[i] = aux;
+				}
+			}
+			res += pa2vec[i];
+		}
+		return res;
 	}
 
 	public static void main(String[] args) {
 		Ejercicios1 ej1 = new Ejercicios1();
 
-		// JUEGO NÚMEROS
-		ej1.adivinaNumero();
+		// Ordenar lista enteros
+		int[] listaN = { 1, 5, 3, 6, 2, 5, 2, 7, 9, 3, 100, 53, 6, 45 };
+		int[] listaIntOrdenada = ej1.ordenaListaNumeros(listaN);
 
-		// Ordenar vector de String.
-		// String[] lista = { "maria", "pepe", "joaquin", "pedro", "gervasio" };
-		// ej1.ordenaListaCadenas(lista);
+		// Buscar numero
+		// boolean encontrado = ej1.busquedaBinaria(100, listaIntOrdenada);
+		// if (encontrado) {
+		// System.out.println("Encontrado");
+		// } else {
+		// System.out.println("NO encontrado");
+		// }
+
+		// Mezclar arrays.
+		// int[] a1 = { 1, 5, 2, 70 };
+		// int[] a2 = { 10, 53, 6, 77, 45 };
+		// ej1.mezclaArrayEnteros(a1, a2);
+
+		// int[][] matriz = { { 6, 2 }, { 8, 9, 5, 7, 9 }, { 1 }, { 4, 5, 7, 2,
+		// 100, 5, 2 } };
+
+		// SUMAR POR COLUMNAS
+		// int[] res1 = ej1.sumaColumnaMatrizTry(matriz);
+		// for (int i = 0; i < res1.length; i++) {
+		// System.out.println(res1[i]);
+		// }
+
+		// int[] movCuenta = { 250, -125, 45, -15, 210 };
+		// int saldoCuenta = 895;
+		// int saldoFinal = ej1.calculaSaldoFinal(movCuenta, saldoCuenta);
+		// System.out.println(saldoFinal);
+
+		String palabra = "guadalajara";
+		String resultado = ej1.ordenaPalabra(palabra);
+		System.out.println(resultado);
+
 	}
 }
