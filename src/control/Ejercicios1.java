@@ -413,7 +413,7 @@ public class Ejercicios1 {
 		return saldoFinal;
 	}
 
-	public String ordenaPalabra(String palabra) {
+	public String ordenaCadena(String palabra) {
 		String res = "";
 		char[] pa2vec = palabra.toCharArray();
 		for (int i = 0; i < pa2vec.length; i++) {
@@ -464,7 +464,7 @@ public class Ejercicios1 {
 		// System.out.println(saldoFinal);
 
 		String palabra = "guadalajara";
-		String resultado = ej1.ordenaPalabra(palabra);
+		String resultado = ej1.ordenaCadena(palabra);
 		System.out.println(resultado);
 
 	}
